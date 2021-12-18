@@ -63,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.Clic
 
     @Override
     public void ClickedUser(UserResponse userResponse) {
-        startActivity(new Intent(this,UserDetailsActivity.class).putExtra("data",userResponse));
+        Intent intent = new Intent(this,UserDetailsActivity.class);
+        intent.putExtra("data",userResponse.getId());
+        startActivity(intent);
 
     }
 }

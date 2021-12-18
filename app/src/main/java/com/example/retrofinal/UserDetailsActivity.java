@@ -1,5 +1,7 @@
 package com.example.retrofinal;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +33,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         phone  = findViewById(R.id.phone);
         website = findViewById(R.id.website);
 
-        Intent intent = getIntent();
+        // Intent intent = getIntent();
+        String myId = getIntent().getStringExtra("data");
+        addUser(myId);
+
+        /**
         if(intent.getExtras() !=null){
             userResponse = (UserResponse) intent.getSerializableExtra("data");
 
@@ -49,7 +55,43 @@ public class UserDetailsActivity extends AppCompatActivity {
 
 
         }
+         **/
 
+    }
+    public void addUser(String myId){
+
+        Call<UserResponse> userlist = ApiClient.getService().addUser(parseInt(myId));
+
+        userlist.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+
+                if(response.isSuccessful()){
+                    // binding the list to the adapter
+                    UserResponse userResponses = response.body();
+                    String usernamedata = userResponses.getUsername();
+                    String useremail = userResponses.getEmail();
+                    String userPhone = userResponses.getNumber();
+                    String userWebsite = userResponses.getWebsite();
+
+
+                    username.setText(usernamedata);
+                    email.setText(useremail);
+                    phone.setText(userPhone);
+                    website.setText(userWebsite);
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                // give message if failed
+                Log.e("failed",t.getLocalizedMessage());
+
+            }
+        });
     }
 
 
