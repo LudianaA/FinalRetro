@@ -4,11 +4,7 @@ import java.io.Serializable;
 
 public class UserResponse implements Serializable {
     private int id;
-    private String username;
-    private String first_name;
-    private String last_name;
     private String email;
-
     private String name;
     private String phone;
     private String website;
@@ -31,14 +27,8 @@ public class UserResponse implements Serializable {
         this.id = id;
     }
 
-
-
     public String getUsername() {
         return name;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 
@@ -50,6 +40,7 @@ public class UserResponse implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -69,8 +60,7 @@ public class UserResponse implements Serializable {
         return "UserResponse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

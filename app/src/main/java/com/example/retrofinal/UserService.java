@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 public interface UserService {
     @GET("users/")
     Call<List<UserResponse>> getAllUsers();
-    @POST("users/")
+    @POST("users/1")
     Call<UserResponse> addUser();
 }

@@ -24,20 +24,12 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.Clic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recyclerview);
-
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         usersAdapter = new UsersAdapter(this::ClickedUser);
-
-
         getAllUsers();
-
-
 
 
     }
@@ -51,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.Clic
             public void onResponse(Call<List<UserResponse>> call, Response<List<UserResponse>> response) {
 
                 if(response.isSuccessful()){
+                    // binding the list to the adapter
                     List<UserResponse> userResponses = response.body();
                     usersAdapter.setData(userResponses);
                     recyclerView.setAdapter(usersAdapter);
@@ -61,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.Clic
 
             @Override
             public void onFailure(Call<List<UserResponse>> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
+                // give message if failed
+                Log.e("failed",t.getLocalizedMessage());
 
             }
         });
